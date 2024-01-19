@@ -55,6 +55,7 @@ class _CircularSeekBarExamplePageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.blue,
       appBar: AppBar(
         title: const Text('Flutter circular_seek_bar example'),
       ),
@@ -62,6 +63,33 @@ class _CircularSeekBarExamplePageState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CircleAvatar()));
+              },
+              child: Text('Test'),
+            ),
+            CircularSeekBar(
+              // width: double.infinity,
+              width: 303,
+              height: 250,
+              progress: _progress,
+              barWidth: 8,
+              startAngle: 45,
+              sweepAngle: 270,
+              strokeCap: StrokeCap.butt,
+              progressGradientColors: const [
+                // Colors.blue,
+                // Colors.indigo,
+                // Colors.purple,
+                Colors.red,
+                Colors.red,
+              ],
+              dashWidth: 1,
+              dashGap: 5,
+              animation: true,
+            ),
             CircularSeekBar(
               width: double.infinity,
               progress: _progress,
