@@ -1,6 +1,7 @@
 import 'package:circular_seek_bar/circular_seek_bar.dart';
 // import 'package:circular_seek_bar_example/util/text_style.dart';
 import 'package:flutter/material.dart';
+import 'custom_circular.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter circular_seek_bar example',
       theme: ThemeData(
         primaryColor: Colors.blue,
@@ -65,31 +67,76 @@ class _CircularSeekBarExamplePageState
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CircleAvatar()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CircularCustom()));
               },
-              child: Text('Test'),
+              child: const Text('Test'),
             ),
+
+            // first circle
             CircularSeekBar(
-              // width: double.infinity,
-              width: 303,
-              height: 250,
+              width: 400,
+              height: 320,
               progress: _progress,
               barWidth: 8,
-              startAngle: 45,
-              sweepAngle: 270,
+              startAngle: 60,
+              sweepAngle: 240,
               strokeCap: StrokeCap.butt,
               progressGradientColors: const [
-                // Colors.blue,
-                // Colors.indigo,
-                // Colors.purple,
                 Colors.red,
                 Colors.red,
               ],
+              //dashWidth + dashGap : Divide Circle into many parts
               dashWidth: 1,
               dashGap: 5,
               animation: true,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 55, 0, 0),
+                    //second circle
+                    child: CircularSeekBar(
+                      width: 164,
+                      height: 164,
+                      progress: _progress,
+                      barWidth: 4,
+                      startAngle: 60,
+                      sweepAngle: 240,
+                      strokeCap: StrokeCap.butt,
+                      progressGradientColors: const [
+                        Colors.red,
+                        Colors.red,
+                      ],
+                      outerThumbStrokeWidth: 10,
+                      outerThumbColor: Colors.blueAccent,
+                      animation: true,
+                      child: const Column(
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
+                            child: Icon(Icons.download),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                            child: Text('97'),
+                          ),
+                          Text('mbps'),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                            child: Text('Ping: 5 ms'),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+
+            ///Circle can change the value
             CircularSeekBar(
               width: double.infinity,
               progress: _progress,
@@ -131,6 +178,8 @@ class _CircularSeekBarExamplePageState
                             Text(
                               'progress',
                             ),
+                            Text('hi'),
+                            Text('Stupid')
                           ],
                         )),
               ),
@@ -166,6 +215,7 @@ class _CircularSeekBarExamplePageState
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Row(
                         children: [
+                          //change the angle
                           Text(
                             'startAngle: ',
                           ),

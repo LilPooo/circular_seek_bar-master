@@ -429,11 +429,24 @@ class _SeekBarPainter extends CustomPainter {
         ..strokeCap = strokeCap
         ..strokeWidth = barWidth;
 
+      //draw main dash
+      Paint maintrackPaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..color = trackColor
+        ..strokeCap = strokeCap
+        ..strokeWidth = 15;
+
       Paint progressPaint = Paint()
         ..style = PaintingStyle.stroke
-        ..color = progressColor
+        ..color = trackColor
         ..strokeCap = strokeCap
         ..strokeWidth = barWidth;
+
+      Paint mainprogressPaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..color = Colors.red
+        ..strokeCap = strokeCap
+        ..strokeWidth = 15;
 
       final Offset center = Offset(size.width / 2, size.height / 2);
       final double largerThumbWidth =
@@ -497,24 +510,58 @@ class _SeekBarPainter extends CustomPainter {
 
         // Draw track dashes.
         for (int i = 0; i < trackDashCounts; i++) {
-          canvas.drawArc(
-            rect,
-            startAngleWithOffsetRadian + dashSumRadian * i,
-            dashWidthRadian,
-            false,
-            trackPaint,
-          );
+          // canvas.drawArc(
+          //   rect,
+          //   startAngleWithOffsetRadian + dashSumRadian * i,
+          //   dashWidthRadian,
+          //   false,
+          //   trackPaint,
+          // );
+          if (i % 5 == 0 || i == 39) {
+            canvas.drawArc(
+              rect,
+              startAngleWithOffsetRadian + dashSumRadian * i,
+              dashWidthRadian,
+              false,
+              maintrackPaint,
+            );
+          } else {
+            canvas.drawArc(
+              rect,
+              startAngleWithOffsetRadian + dashSumRadian * i,
+              dashWidthRadian,
+              false,
+              trackPaint,
+            );
+          }
         }
 
         // Draw progress dashes.
         for (int i = 0; i < progressDashCounts; i++) {
-          canvas.drawArc(
-            rect,
-            startAngleWithOffsetRadian + dashSumRadian * i,
-            dashWidthRadian,
-            false,
-            progressPaint,
-          );
+          // canvas.drawArc(
+          //   rect,
+          //   startAngleWithOffsetRadian + dashSumRadian * i,
+          //   dashWidthRadian,
+          //   false,
+          //   progressPaint,
+          // );
+          if (i % 5 == 0 || i == 39) {
+            canvas.drawArc(
+              rect,
+              startAngleWithOffsetRadian + dashSumRadian * i,
+              dashWidthRadian,
+              false,
+              mainprogressPaint,
+            );
+          } else {
+            canvas.drawArc(
+              rect,
+              startAngleWithOffsetRadian + dashSumRadian * i,
+              dashWidthRadian,
+              false,
+              progressPaint,
+            );
+          }
         }
 
         canvas.drawArc(
